@@ -9,7 +9,9 @@ export class SnippetsController {
 
   @Post()
   create(@Body() createSnippetDto: CreateSnippetDto) {
-    return this.snippetsService.create(createSnippetDto);
+    const mockUserId = 'user_1'; // A mock user to be used while the Auth module is not implemented
+    
+    return this.snippetsService.create(createSnippetDto, mockUserId);
   }
 
   @Get()
@@ -19,16 +21,16 @@ export class SnippetsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.snippetsService.findOne(+id);
+    return this.snippetsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSnippetDto: UpdateSnippetDto) {
-    return this.snippetsService.update(+id, updateSnippetDto);
+    return this.snippetsService.update(id, updateSnippetDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.snippetsService.remove(+id);
+    return this.snippetsService.remove(id);
   }
 }
