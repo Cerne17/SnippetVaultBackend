@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSnippetDto } from './dto/create-snippet.dto';
 import { UpdateSnippetDto } from './dto/update-snippet.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Snippet } from './schemas/snippet.schema';
+import type { Model } from 'mongoose';
 
 @Injectable()
 export class SnippetsService {
-  create(createSnippetDto: CreateSnippetDto) {
-    return 'This action adds a new snippet';
+
+  constructor(@InjectModel(Snippet.name) private snippetModel: Model<Snippet>) {}
+
+  async create(createSnippetDto: CreateSnippetDto, userId: string): Promise<Snippet> {
+    const newSnippet = new this.snippetModel({
+      ...createSnippetDto,
+      userId,
+    });
+
+    return newSnippet.save();
   }
 
-  findAll() {
-    return `This action returns all snippets`;
+  findAll(): Promise<Snippet[]> {
+    return this.snippetModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} snippet`;
+  findOne(id: string): Promise<Snippet> {
+    return this.snippetModel.findById(id).exec();
   }
 
-  update(id: number, updateSnippetDto: UpdateSnippetDto) {
-    return `This action updates a #${id} snippet`;
+  update(id: string, updateSnippetDto: UpdateSnippetDto): Promise<Snippet> {
+    return this.snippetModel
+      .findByIdAndUpdate(id, updateSnippetDto, { new: true })
+      .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} snippet`;
+  remove(id: string): Promise<Snippet> {
+    return this.snippetModel.findByIdAndDelete(id).exec();
   }
 }
