@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# SnippetVault Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend for SnippetVault, built with [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   **Modern UI**: Clean and responsive interface using Tailwind CSS.
+-   **Authentication**: User registration and login with JWT handling.
+-   **Snippet Management**: Create, view, and delete code snippets.
+-   **Syntax Highlighting**: Code blocks with syntax highlighting.
+-   **Protected Routes**: Secure navigation for authenticated features.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   **Framework**: React (Vite)
+-   **Styling**: Tailwind CSS
+-   **State/Data Fetching**: React Query (TanStack Query)
+-   **Forms**: React Hook Form
+-   **Routing**: React Router DOM
+-   **Icons**: Lucide React
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-   Node.js (v18+)
+-   Running Backend Instance
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+$ npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the root directory:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_API_URL=http://localhost:3000 # URL of your backend
 ```
+
+## Running the App
+
+```bash
+# development
+$ npm run dev
+
+# build for production
+$ npm run build
+
+# preview production build
+$ npm run preview
+```
+
+## Project Structure
+
+-   `src/components`: Reusable UI components (`Layout`, `ProtectedRoute`, etc.).
+-   `src/context`: React Context providers (`AuthContext`).
+-   `src/pages`: Page components (`Home`, `Login`, `CreateSnippet`, etc.).
+-   `src/services`: API service layers (`authService`, `snippetService`).
+-   `src/types`: TypeScript interfaces and types.
+
+## Deployment (Vercel)
+
+This project is ready for Vercel deployment.
+
+1.  Install Vercel CLI: `npm i -g vercel`
+2.  Deploy: `vercel`
+3.  Set Environment Variable in Vercel Dashboard: `VITE_API_URL` (point to your deployed backend URL).
