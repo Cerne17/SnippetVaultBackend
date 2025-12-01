@@ -17,8 +17,4 @@ export class CreateSnippetDto {
   @IsString({ each: true })
   @IsOptional()
   tags?: string[];
-
-  @IsString()
-  @IsNotEmpty()
-  userId: string;
 }

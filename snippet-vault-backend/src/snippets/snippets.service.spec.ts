@@ -51,7 +51,7 @@ describe('SnippetsService', () => {
   describe('create', () => {
     it('should create a new snippet', async () => {
       const userId = 'user1';
-      const createDto = { title: 'Test Snippet', code: 'console.log("hello")', language: 'javascript', userId };
+      const createDto = { title: 'Test Snippet', code: 'console.log("hello")', language: 'javascript' };
 
       const result = await service.create(createDto, userId);
 
