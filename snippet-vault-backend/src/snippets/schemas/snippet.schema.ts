@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
+import * as mongoose from 'mongoose';
+import { User } from '../../users/schemas/user.schema';
 
 export type SnippetDocument = HydratedDocument<Snippet>;
 
@@ -29,8 +31,8 @@ export class Snippet {
     @Prop({ type: Date, default: null })
     favoritedAt: Date | null;
 
-    @Prop({ required: true })
-    userId: string;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+    userId: User;
 }
 
 export const SnippetSchema = SchemaFactory.createForClass(Snippet);

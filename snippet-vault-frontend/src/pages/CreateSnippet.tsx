@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { snippetService } from '../services/snippetService';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
-import { Textarea } from '../components/ui/Textarea';
+import CodeEditor from '../components/CodeEditor';
 import { Loader2 } from 'lucide-react';
 import type { CreateSnippetDto } from '../types/snippet';
 
@@ -12,7 +12,7 @@ export default function CreateSnippet() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   
-  const { register, handleSubmit, formState: { errors } } = useForm<CreateSnippetDto>();
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<CreateSnippetDto>();
 
   const createMutation = useMutation({
     mutationFn: (data: CreateSnippetDto) => snippetService.create(data),
@@ -86,10 +86,11 @@ export default function CreateSnippet() {
           <label className="block text-sm font-medium text-slate-700 mb-1">
             Code
           </label>
-          <Textarea
-            {...register('code', { required: 'Code is required' })}
+          <CodeEditor
+            value={watch('code') || ''}
+            onValueChange={(code) => setValue('code', code)}
+            language={watch('language') || 'javascript'}
             placeholder="Paste your code here..."
-            className="font-mono h-64"
           />
           {errors.code && (
             <p className="mt-1 text-sm text-red-600">{errors.code.message}</p>

@@ -32,11 +32,11 @@ export class SnippetsService {
       query.tags = tag;
     }
 
-    return this.snippetModel.find(query).exec();
+    return this.snippetModel.find(query).populate('userId', 'name').exec();
   }
 
   findOne(id: string): Promise<Snippet> {
-    return this.snippetModel.findOne({ _id: id, deletedAt: null }).exec();
+    return this.snippetModel.findOne({ _id: id, deletedAt: null }).populate('userId', 'name').exec();
   }
 
   update(id: string, updateSnippetDto: UpdateSnippetDto): Promise<Snippet> {

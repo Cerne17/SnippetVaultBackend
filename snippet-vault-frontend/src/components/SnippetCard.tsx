@@ -18,15 +18,18 @@ export default function SnippetCard({ snippet }: SnippetCardProps) {
                 {snippet.title}
               </h3>
             </Link>
-            <div className="flex items-center gap-3 mt-2 text-xs text-slate-500">
-              <span className="flex items-center gap-1">
-                <Calendar className="w-3 h-3" />
-                {new Date(snippet.createdAt).toLocaleDateString()}
-              </span>
-              <span className="px-2 py-0.5 rounded-full bg-slate-100 font-medium text-slate-600 uppercase tracking-wider">
-                {snippet.language}
-              </span>
-            </div>
+            <div className="flex items-center justify-between text-sm text-slate-500">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1">
+              <Calendar className="w-4 h-4" />
+              {new Date(snippet.createdAt).toLocaleDateString()}
+            </span>
+            <span>by {typeof snippet.userId === 'object' ? snippet.userId.name : 'Unknown'}</span>
+          </div>
+          <span className="px-2.5 py-0.5 rounded-full bg-slate-100 font-medium text-slate-600 uppercase tracking-wider text-xs">
+            {snippet.language}
+          </span>
+        </div>
           </div>
         </div>
 

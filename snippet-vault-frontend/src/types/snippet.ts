@@ -6,7 +6,7 @@ export interface Snippet {
   tags: string[];
   createdAt: string;
   updatedAt: string;
-  userId: string;
+  userId: string | { _id: string; name: string };
 }
 
 export interface CreateSnippetDto {

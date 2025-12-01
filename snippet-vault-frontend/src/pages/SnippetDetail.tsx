@@ -46,7 +46,7 @@ export default function SnippetDetail() {
     );
   }
 
-  const isOwner = user?._id === snippet.userId;
+  const isOwner = user?._id === (typeof snippet.userId === 'object' ? snippet.userId._id : snippet.userId);
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -72,6 +72,7 @@ export default function SnippetDetail() {
                 <span className="px-2.5 py-0.5 rounded-full bg-slate-100 font-medium text-slate-600 uppercase tracking-wider text-xs">
                   {snippet.language}
                 </span>
+                <span className="text-slate-400">by {typeof snippet.userId === 'object' ? snippet.userId.name : 'Unknown'}</span>
               </div>
             </div>
             {isOwner && (
