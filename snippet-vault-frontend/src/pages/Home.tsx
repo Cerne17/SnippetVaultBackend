@@ -3,17 +3,24 @@ import { snippetService } from '../services/snippetService';
 import SnippetCard from '../components/SnippetCard';
 import { Loader2, Search } from 'lucide-react';
 import { Input } from '../components/ui/Input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 export default function Home() {
   const [search, setSearch] = useState('');
-  // For now, we won't implement debounce to save time, just direct search or maybe no search yet if it's too complex for this step.
-  // Actually, let's just fetch all for now.
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
   
   const { data: snippets, isLoading, error } = useQuery({
-    queryKey: ['snippets'],
-    queryFn: () => snippetService.getAll(),
+    queryKey: ['snippets', debouncedSearch],
+    queryFn: () => snippetService.getAll({ search: debouncedSearch }),
   });
 
   if (isLoading) {

@@ -8,4 +8,8 @@ export class FilterSnippetDto {
   @IsOptional()
   @IsString()
   tag?: string;
+
+  @IsOptional()
+  @IsString()
+  search?: string;
 }

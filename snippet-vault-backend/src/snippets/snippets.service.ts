@@ -32,6 +32,13 @@ export class SnippetsService {
       query.tags = tag;
     }
 
+    if (filterDto.search) {
+      query.$or = [
+        { title: { $regex: filterDto.search, $options: 'i' } },
+        { code: { $regex: filterDto.search, $options: 'i' } },
+      ];
+    }
+
     return this.snippetModel.find(query).populate('userId', 'name').exec();
   }
 
